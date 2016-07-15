@@ -1,6 +1,5 @@
 ### Tempel-CLI using Python
 =========
-
 #### Usage:
 
 	tempel [options]
@@ -17,4 +16,4 @@ Options:
 	<filename>               from filename directly`
 
 ### License MIT
-Projyek License can be found [here](LICENSE.md).
+Project License can be found [here](LICENSE.md).
