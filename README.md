@@ -1,4 +1,4 @@
-### Tempel-CLI using Python
+### Tempel-CLI uses Python
 =========
 #### Usage:
 
