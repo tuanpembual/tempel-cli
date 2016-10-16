@@ -26,11 +26,13 @@ def main(argv):
     lang = "text"
     argumen =[]
     from_stdin = False
+    content_stdin = ""
 
     # Check if have stdin input
     if select.select([sys.stdin,],[],[],0.0)[0]:
         from_stdin = True
-
+        for line in sys.stdin:
+            content_stdin += line
     try:
         opts, args = getopt.getopt(argv,"vhl:t:",["version","help","language=","text="])
     except getopt.GetoptError as err:
@@ -38,8 +40,7 @@ def main(argv):
         bantuan()
         sys.exit(2)
     if opts ==argumen and args == argumen and from_stdin:  # echo "Hello" | ./tempel
-        for line in sys.stdin:
-            content = line
+        content = content_stdin
     elif opts ==argumen and args == argumen:      #./tempel
         bantuan()
         sys.exit(2)
@@ -76,8 +77,7 @@ def main(argv):
                     sys.exit(2)
                 elif opt in ("-l", "--lang", "--language") and from_stdin:  # echo "Hello" | ./tempel -l bash
                    lang = argv[1]
-                   for line in sys.stdin:
-                       content = line
+                   content = content_stdin
                 elif opt in ("-l", "--lang", "--language"):  #./tempel -l bash
                     print """Need text parameter"""
                     bantuan()
