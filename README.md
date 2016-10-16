@@ -2,8 +2,11 @@
 =========
 #### Usage:
 
+```
 	tempel [options]
 	tempel -l <lang> namefile
+    echo "Hello world" | tempel -l <lang>
+    dmesg | tempel
 
 Options:
 
@@ -14,6 +17,7 @@ Options:
     lua make perl php python rst ruby sql text xml yaml
 	-t, --text <text>      from text
 	<filename>               from filename directly`
+```
 
 ### License MIT
 Project License can be found [here](LICENSE.md).

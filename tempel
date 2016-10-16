@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import urllib, urllib2, requests
-import os, sys, getopt
+import os, sys, getopt, select
 
 def versi():
     string = """tempel cli version 0.0.3"""
@@ -23,16 +23,25 @@ tempel -l <lang> namefile
 
 def main(argv):
     content = ""
-    lang = "bash"
+    lang = "text"
     argumen =[]
+    from_stdin = False
+    content_stdin = ""
 
+    # Check if have stdin input
+    if select.select([sys.stdin,],[],[],0.0)[0]:
+        from_stdin = True
+        for line in sys.stdin:
+            content_stdin += line
     try:
         opts, args = getopt.getopt(argv,"vhl:t:",["version","help","language=","text="])
     except getopt.GetoptError as err:
         print str(err)
         bantuan()
         sys.exit(2)
-    if opts ==argumen and args == argumen:      #./tempel
+    if opts ==argumen and args == argumen and from_stdin:  # echo "Hello" | ./tempel
+        content = content_stdin
+    elif opts ==argumen and args == argumen:      #./tempel
         bantuan()
         sys.exit(2)
     elif opts == argumen and args != argumen:   #./tempel README.md
@@ -66,6 +75,9 @@ def main(argv):
                 elif opt in ("-h", "--help"):       #./tempel --help  
                     bantuan()
                     sys.exit(2)
+                elif opt in ("-l", "--lang", "--language") and from_stdin:  # echo "Hello" | ./tempel -l bash
+                   lang = argv[1]
+                   content = content_stdin
                 elif opt in ("-l", "--lang", "--language"):  #./tempel -l bash
                     print """Need text parameter"""
                     bantuan()
