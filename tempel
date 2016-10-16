@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import urllib, urllib2
+import urllib, urllib2, requests
 import os, sys, getopt, select
 
 def versi():
@@ -116,9 +116,11 @@ def main(argv):
       'language' : lang,
       'content' : content
     }
-    data = urllib.urlencode(values)
-    response = urllib2.urlopen(urllib2.Request(tempel,data))
-    print 'URL     :', response.geturl()
+    #data = urllib.urlencode(values)
+    #response = urllib2.urlopen(urllib2.Request(tempel,data))
+    #print 'URL     :', response.geturl()
+    response = requests.request("POST", tempel, data=values)
+    print 'URL: ', response.url
 
 if __name__ == "__main__":
    main(sys.argv[1:])
