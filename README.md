@@ -16,7 +16,7 @@ Options:
     bash c cpp css diff html html+django ini java
     lua make perl php python rst ruby sql text xml yaml
 	-t, --text <text>      from text
-	<filename>               from filename directly`
+	<filename>             from filename directly
 ```
 
 ### License MIT
