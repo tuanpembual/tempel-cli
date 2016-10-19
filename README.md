@@ -1,5 +1,9 @@
 ### Tempel-CLI uses Python
 =========
+#### Dependencies:
+* python
+* requests
+
 #### Usage:
 
 ```
