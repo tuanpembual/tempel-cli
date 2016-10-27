@@ -10,7 +10,7 @@ tool for paste your snippet to http://tempel.blankon.in as default it will get d
 
 #### Usage:
 
-usage: `tempel.py [-h] [-t TEXT | -c CLIPBOARD | -f FILENAME] [-v] language`
+usage: `tempel.py [-h] [-t TEXT | -f FILENAME] [-v] language`
 
 tempel your source code to http://tempel.blankon.in
 
