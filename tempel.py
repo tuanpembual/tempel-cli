@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
 import argparse
-import clipboard
 import requests
+import pyperclip
 
 __version__ = '0.0.4'
 
@@ -36,7 +36,7 @@ def get_args():
         elif args.filename:
             content = from_file(args.filename)
         else:
-            content = clipboard.paste()
+            content = pyperclip.paste()
 
         tempel = 'http://tempel.blankon.in'
         values = {
@@ -63,5 +63,4 @@ def post(url, values):
         print(e)
 
 if __name__ == "__main__":
-   #main(sys.argv[1:])
    get_args()

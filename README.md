@@ -3,7 +3,7 @@
 #### Dependencies:
 * python
 * requests  
-* clipboard  
+* pyperclip  
   
 #### Description:  
 tool for paste your snippet to http://tempel.blankon.in as default it will get data from clipboard as text.  
@@ -16,17 +16,17 @@ tempel your source code to http://tempel.blankon.in
 
 positional arguments:  
 ```
-  language              language of source code; bash c cpp css diff html
-                        html+django ini java lua make perl php python rst ruby
-                        sql text xml yaml  
+  {language}              language of source code; bash c cpp css diff html
+                          html+django ini java lua make perl php python rst ruby
+                          sql text xml yaml  
 ```
 
 optional arguments:  
 ```
-  -h, --help            				        show this help message and exit  
-  -t TEXT, --text TEXT  				        from text  
-  -f FILENAME, --filename FILENAME      from file  
-  -v, --version         				        show program's version number and exit  
+  -h, --help            				          show this help message and exit  
+  -t TEXT, --text TEXT  				          from text  
+  -f FILENAME, --filename FILENAME        from file  
+  -v, --version         				          show program's version number and exit  
 ```
 
 #### TODO:  
