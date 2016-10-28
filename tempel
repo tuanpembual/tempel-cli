@@ -1,126 +1,89 @@
 #!/usr/bin/python
 
-import urllib, urllib2, requests
-import os, sys, getopt, select
+import argparse
+import requests
+import pyperclip
 
-def versi():
-    string = """tempel cli version 0.0.4"""
-    print string
+__version__ = '0.0.4'
 
-def bantuan():
-    string = """Usage: tempel [options]
-tempel -l <lang> namefile
-    Options:
+def get_args():
+    """
+    This module use argparse module to process args from tempel command
 
-        -h, --help             output usage information
-        -v, --version          output the version number
-        -l, --language <lang>  Set language;
-            bash c cpp css diff html html+django ini java
-            lua make perl php python rst ruby sql text xml yaml
-        -t, --text <text>      from text
-        <filename>               from filename directly""" 
-    print string
+    """
+    parser = argparse.ArgumentParser(
+        description="tempel your source code to http://tempel.blankon.in",
+        epilog=None
+    )
+    #required args
+    parser.add_argument('language', action='store', nargs='?',
+                    help='language of source code; bash c cpp css diff html html+django ini java lua make perl php python rst ruby sql text xml yaml',
+                    default='text', choices=['bash', 'c', 'cpp', 'css', 'diff', 'html', 'html+django', 'ini', 'java', 'lua', 'make', 'perl', 'php', 'python',
+                    'rst', 'ruby', 'sql', 'text', 'xml', 'yaml'])
 
-def main(argv):
-    content = ""
-    lang = "text"
-    argumen =[]
-    from_stdin = False
-    content_stdin = ""
+    group = parser.add_mutually_exclusive_group()
+    #optional args
+    #group args -t and -f since you cannot use both of them together
+    group.add_argument('-t', '--text', help='from text', default=False)
+    group.add_argument('-f', '--filename', help='from file', default=False)    
 
-    # Check if have stdin input
-    if select.select([sys.stdin,],[],[],0.0)[0]:
-        from_stdin = True
-        for line in sys.stdin:
-            content_stdin += line
-    try:
-        opts, args = getopt.getopt(argv,"vhl:t:",["version","help","language=","text="])
-    except getopt.GetoptError as err:
-        print str(err)
-        bantuan()
-        sys.exit(2)
-    if opts ==argumen and args == argumen and from_stdin:  # echo "Hello" | ./tempel
-        content = content_stdin
-    elif opts ==argumen and args == argumen:      #./tempel
-        bantuan()
-        sys.exit(2)
-    elif opts == argumen and args != argumen:   #./tempel README.md
-        if len(args) < 2:
-            if os.path.isfile(argv[0]):
-                f = open(argv[0], "r")
-                content = f.read()
-            else:
-                print "No such file",argv[0]             #./tempel a
-                sys.exit(2)
+    parser.add_argument('-v', '--version', action='version',
+                    version='%(prog)s {version}'.format(version=__version__))
+
+    args = parser.parse_args()
+    if args.language in ['bash', 'c', 'cpp', 'css', 'diff', 'html', 'html+django',
+                         'ini', 'java', 'lua', 'make', 'perl', 'php', 'python',
+                         'rst', 'ruby', 'sql', 'text', 'xml', 'yaml'
+                        ]:
+        if args.text:
+            content = args.text
+        elif args.filename:
+            content = from_file(args.filename)
         else:
-            if argv[1] in ("-l", "--lang", "--language"):  #./tempel README.md -l bash
-                lang = argv[2]
-                if os.path.isfile(argv[0]):
-                    f = open(argv[0], "r")
-                    content = f.read()
-            elif argv[1] in ("-t", "--text"):              #./tempel README.md -t hihi
-                print "Wrong parameter"
-                bantuan()
-                sys.exit(2)
-            else:
-                print "Wrong parameter"
-                bantuan()
-                sys.exit(2)
-    elif opts != argumen and args == argumen:
-        for opt, arg in opts:
-            if len(opts) < 2:
-                if opt in ("-v", "--version"):      #./tempel --version
-                    versi()
-                    sys.exit(2)
-                elif opt in ("-h", "--help"):       #./tempel --help  
-                    bantuan()
-                    sys.exit(2)
-                elif opt in ("-l", "--lang", "--language") and from_stdin:  # echo "Hello" | ./tempel -l bash
-                   lang = argv[1]
-                   content = content_stdin
-                elif opt in ("-l", "--lang", "--language"):  #./tempel -l bash
-                    print """Need text parameter"""
-                    bantuan()
-                    sys.exit(2)
-                elif opt in ("-t", "--text"):                #./tempel -t hihihi
-                    content = argv[1]
-            elif len(opts) > 1 and len(opts) <3:
-                if argv[0] in ("-l", "--lang", "--language"):#./tempel -l bash -t hihihi
-                    lang = argv[1]
-                    content = argv[3]
-                elif argv[0] in ("-t", "--text"):            #./tempel -t hihihi -l bash 
-                    lang = argv[3]
-                    content = argv[1]
-                break
-            else:
-                print "To much parameters"
-                bantuan()
-                sys.exit(2)
-    elif opts != argumen and args != argumen:
-        for opt, arg in opts:
-            if opt in ("-l", "--lang", "--language"):   #./tempel -l bash README.md
-                lang = arg
-            elif opt in ("-t", "--text"):               #./tempel -t hihihi README.md
-                print "Wrong parameter"
-                bantuan()
-                sys.exit(2)
-        if os.path.isfile(args[0]):
-            f = open(args[0], "r")
-            content = f.read()
-        else:
-            print "No such file",args[0]             #./tempel a
-            sys.exit(2)
+            content = pyperclip.paste() #default source of tempel is string from clipboard
+
+        tempel = 'http://tempel.blankon.in'
+        values = {
+        'language' : args.language,
+        'content' : content
+        }
+        print 'URL: ', post(tempel, values) #print returned url after post to terminal
+        pyperclip.copy(post(tempel, values)) #copy returned url after post to clipboard
+    else:
+        print('Please use specified language in help')
+
+def from_file(berkas):
+    """
+    This function read file from specified location, and return content of file as string.
+
+    Args:
+        berkas (str): location of file to be read.
     
-    tempel = 'http://tempel.blankon.in'
-    values = {
-      'language' : lang,
-      'content' : content
-    }
-    #data = urllib.urlencode(values)
-    #response = urllib2.urlopen(urllib2.Request(tempel,data))
-    #print 'URL     :', response.geturl()
-    response = requests.request("POST", tempel, data=values)
-    print 'URL: ', response.url
+    Returns:
+        str: The return value of file.
+    """
+    try:
+        f = open(berkas, mode='r')
+        return f.read()
+    except ValueError as e:
+        print(e)
+
+def post(url, values):
+    """
+    This function post specified value to specified url.
+
+    Args:
+        url (str): url of target server.
+        values (str): json type of content required to post
+
+    Return:
+        str: The posted url returned if success.
+    """
+    try:
+        response = requests.request('POST', url, data=values)
+        return response.url
+    except ValueError as e:
+        print(e)
 
 if __name__ == "__main__":
-   main(sys.argv[1:])
+   get_args()

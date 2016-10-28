@@ -2,26 +2,36 @@
 =========
 #### Dependencies:
 * python
-* requests
+* requests  
+* pyperclip  
+  
+#### Description:  
+tool for paste your snippet to http://tempel.blankon.in as default it will get data from clipboard as text.  
 
 #### Usage:
 
-```
-	tempel [options]
-	tempel -l <lang> namefile
-    echo "Hello world" | tempel -l <lang>
-    dmesg | tempel
+usage: `tempel.py [-h] [-t TEXT | -f FILENAME] [-v] language`
 
-Options:
+tempel your source code to http://tempel.blankon.in
 
-	-h, --help             output usage information
-	-v, --version          output the version number
-	-l, --language <lang>  Set language;
-    bash c cpp css diff html html+django ini java
-    lua make perl php python rst ruby sql text xml yaml
-	-t, --text <text>      from text
-	<filename>             from filename directly
+positional arguments:  
 ```
+  {language}              language of source code; bash c cpp css diff html
+                          html+django ini java lua make perl php python rst ruby
+                          sql text xml yaml  
+```
+
+optional arguments:  
+```
+  -h, --help            				          show this help message and exit  
+  -t TEXT, --text TEXT  				          from text  
+  -f FILENAME, --filename FILENAME        from file  
+  -v, --version         				          show program's version number and exit  
+```
+
+#### TODO:  
+1. Create pypi package  
+2. Create GUI app  
 
 ### License MIT
 Project License can be found [here](LICENSE.md).
