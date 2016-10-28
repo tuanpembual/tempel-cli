@@ -7,7 +7,10 @@ import pyperclip
 __version__ = '0.0.4'
 
 def get_args():
-    """"""
+    """
+    This module use argparse module to process args from tempel command
+
+    """
     parser = argparse.ArgumentParser(
         description="tempel your source code to http://tempel.blankon.in",
         epilog=None
@@ -20,6 +23,7 @@ def get_args():
 
     group = parser.add_mutually_exclusive_group()
     #optional args
+    #group args -t and -f since you cannot use both of them together
     group.add_argument('-t', '--text', help='from text', default=False)
     group.add_argument('-f', '--filename', help='from file', default=False)    
 
@@ -36,19 +40,28 @@ def get_args():
         elif args.filename:
             content = from_file(args.filename)
         else:
-            content = pyperclip.paste()
+            content = pyperclip.paste() #default source of tempel is string from clipboard
 
         tempel = 'http://tempel.blankon.in'
         values = {
         'language' : args.language,
         'content' : content
         }
-        print 'URL: ', post(tempel, values)
+        print 'URL: ', post(tempel, values) #print returned url after post to terminal
+        pyperclip.copy(post(tempel, values)) #copy returned url after post to clipboard
     else:
         print('Please use specified language in help')
 
 def from_file(berkas):
-    """"""
+    """
+    This function read file from specified location, and return content of file as string.
+
+    Args:
+        berkas (str): location of file to be read.
+    
+    Returns:
+        str: The return value of file.
+    """
     try:
         f = open(berkas, mode='r')
         return f.read()
@@ -56,6 +69,16 @@ def from_file(berkas):
         print(e)
 
 def post(url, values):
+    """
+    This function post specified value to specified url.
+
+    Args:
+        url (str): url of target server.
+        values (str): json type of content required to post
+
+    Return:
+        str: The posted url returned if success.
+    """
     try:
         response = requests.request('POST', url, data=values)
         return response.url
