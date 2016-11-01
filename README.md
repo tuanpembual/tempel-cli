@@ -25,7 +25,7 @@ optional arguments:
 ```
   -h, --help            				          show this help message and exit  
   -t TEXT, --text TEXT  				          from text  
-  -f FILENAME, --filename FILENAME        from file  
+  -f FILENAME, --filename FILENAME                from file  
   -v, --version         				          show program's version number and exit  
 ```
 
