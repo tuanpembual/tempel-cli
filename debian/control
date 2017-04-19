@@ -1,0 +1,15 @@
+Source: tempel
+Section: additional
+Priority: optional
+Maintainer: BlankOn Developer <BlankOn-dev@googlegroups.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.8
+Homepage: https://github.com/BlankOn/tempel-cli-py
+Vcs-Git: https://github.com/BlankOn/tempel-cli-py.git
+Vcs-Browser: https://github.com/BlankOn/tempel-cli-py.git
+
+Package: tempel
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, python, python-requests, python-pyperclip
+Description: Tempel-CLI uses python
+ Temple-CLI for paste text or text file from cli to tempel.blankon.in.

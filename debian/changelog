@@ -1,0 +1,53 @@
+tempel (0.1.0-0blankon1) tambora; urgency=medium
+
+  * New upstream release
+
+ -- AnTo SamalonA <antosamalona@masDell>  Fri, 11 Nov 2016 01:52:52 +0800
+
+tempel (0.0.6-0blankon1) tambora; urgency=medium
+
+  * New upstream release
+
+ -- AnTo SamalonA <antosamalona@masDell>  Tue, 01 Nov 2016 23:00:29 +0800
+
+tempel (0.0.4-0blankon3) tambora; urgency=medium
+
+  * rebuild tempel
+
+ -- AnTo SamalonA <antosamalona@masDell>  Mon, 31 Oct 2016 20:57:32 +0800
+
+tempel (0.0.4-0blankon2) tambora; urgency=medium
+
+  * Fix typo
+
+ -- AnTo SamalonA <antosamalona@masDell>  Mon, 31 Oct 2016 01:36:01 +0800
+
+tempel (0.0.4-0blankon1) tambora; urgency=medium
+
+  * Version change
+
+ -- AnTo SamalonA <antosamalona@masDell>  Fri, 21 Oct 2016 18:48:17 +0800
+
+tempel (0.0.4) tambora; urgency=medium
+
+  * New upstream stable release
+
+ -- AnTo SamalonA <antosamalona@masDell>  Fri, 21 Oct 2016 18:39:01 +0800
+
+tempel (0.0.3) tambora; urgency=medium
+
+  * Upstream release
+
+ -- AnTo SamalonA <antosamalona@masDell>  Fri, 21 Oct 2016 07:53:21 +0800
+
+tempel (0.0.3-0blankon2) tambora; urgency=medium
+
+  * Add python-request
+
+ -- AnTo SamalonA <antosamalona@masDell>  Wed, 19 Oct 2016 21:22:41 +0800
+
+tempel (0.0.3-0blankon1) tambora; urgency=medium
+
+  * Build to deb
+
+ -- AnTo SamalonA <ansamsoftdev@gmail.com>  Mon, 17 Oct 2016 00:53:57 +0800
